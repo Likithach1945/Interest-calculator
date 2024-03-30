@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Compound Interest Calculator</title>
+    <link rel="stylesheet" href="interest.css"> 
+
+</head>
+
+<style>
+    select {
+        font-size: 18px;
+        outline: none;
+    }
+    #btn {
+        margin: 30px;
+    }
+</style>
+
+
+<body id = "body">
+    <section id="input">
+        <h1 class="primary-h1">Compound Interest Calculator</h1>
+        <div class="container">
+            <form action="" id="input">
+                <div class="formData">
+                    <label>Principal Amount</label>
+                    <input type="number" id="principalAmount">
+                </div>
+
+                <div class="formData">
+                    <label>Rate of Interest</label>
+                    <input type="number" id="rateOfInterest">
+                </div>
+
+                <div class="formData">
+                    <label>Time Period</label>
+                    <input type="number" id="timePeriod">
+                </div>
+
+                <!-- <div class="formData">
+                    <label>Frequency</label>
+                    <input type="number" id="frequency">
+                </div> -->
+
+                <div class="formData">
+                    <label>Frequency</label>
+                    <select name="frequency" id="frequency" class="mydropdown">
+                        <option value="Yearly" selected>Yearly</option>
+                        <option value="Half-Yearly">Half-Yearly</option>
+                        <option value="Quaterly">Quaterly</option>
+                        <option value="Monthly">Monthly</option>
+                    </select>
+                </div>
+                
+                <div class="formData">
+                    <input type="submit" value="Calculate" id="btn" onclick="calculate(); return false;">
+                </div>
+
+                <!-- result area  -->
+                <div class="result">
+                    Principal Amount : <span id="p"></span> 
+                </div>
+                <div class="result">
+                    Total Interest : <span id="ci"></span> 
+                </div>
+                <div class="result">
+                    Total Amount : <span id="totalAmount"></span> 
+                </div>
+            </form>
+        </div>
+    </section>
+
+    <script>
+        function calculate() {
+            // getting frequency value from the user 
+
+            const dropdown = document.getElementById("frequency");
+            const selectedValue = dropdown.value;
+            // console.log(selectedValue);
+            var principal = parseFloat(document.getElementById('principalAmount').value);
+            var rate = parseFloat(document.getElementById('rateOfInterest').value);
+            var time = parseFloat(document.getElementById('timePeriod').value);
+        
+            //Calculating the compound interest based on the frequency
+            var frequency;
+            switch(selectedValue) {
+                case "Yearly" :
+                    n = 1;
+                    break;
+                case "Half-Yearly":
+                    n = 2;
+                    break;
+                case "Quaterly":
+                    n = 4;
+                    break;    
+                case "Monthly":
+                    n = 12;
+                    break;
+            }
+
+
+            //Calculation
+            var Amount = principal * Math.pow(1 + (rate / (100 * n)), n*time);
+            var compoundInterest = Amount - principal;
+
+            //Manipulating HTML result area
+            document.getElementById('p').innerHTML = principal.toFixed(2);
+            document.getElementById('ci').innerHTML =  compoundInterest.toFixed(2);
+            document.getElementById('totalAmount').innerHTML = Amount.toFixed(2);
+
+            
+
+        }
+    </script>
+    
+</body>
+</html>
